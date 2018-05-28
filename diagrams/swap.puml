@@ -1,0 +1,21 @@
+@startuml
+!pragma teoz true
+
+hide footbox
+
+
+actor Buyer as "Alice"
+participant d1 as "DEX 1"
+participant d2 as "DEX 2"
+actor Seller as " Bob "
+
+
+Buyer --> d1: 10 T1
+d1 --> d2: 10 T1
+d2 --> Seller: 10 T1
+Seller --> d2: 20 T2
+d2 --> d1: 20 T2
+d1 --> Buyer: 20 T2
+
+
+@enduml

@@ -1,0 +1,31 @@
+@startuml
+!pragma teoz true
+
+actor (Alice)
+actor (Bob)
+actor (Charlie)
+actor (David)
+
+actor (Alice2) as "Alice"
+actor (Bob2) as "Bob"
+actor (Charlie2) as "Charlie"
+actor (David2) as "David"
+
+actor (Alice3) as "Alice"
+actor (Bob3) as "Bob"
+actor (Charlie3) as "Charlie"
+actor (David3) as "David"
+
+(Alice) -- (Bob)
+(Bob) -- (Charlie)
+Bob -- (David)
+
+(Alice2)  --> (Bob2): $X
+(Bob2) --> (Charlie2): $X
+(Bob2) -- (David2)
+
+(Alice3)  --> (Bob3): $Y
+(Bob3) -- (Charlie3)
+(Bob3) --> (David3): $Y
+
+@enduml

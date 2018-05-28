@@ -1,0 +1,48 @@
+@startuml
+!pragma teoz true
+
+skinparam backgroundColor #EEEEEE
+hide footbox
+autonumber "<b>00"
+actor Alice #blue
+actor Bob #green
+participant Registry as "Registry\nContract"
+participant Token as "Token\nContract"
+participant PM as "Preimage\nManager\nContract"
+
+title : Sprites Payments 2 Parties
+
+Alice   -> Registry: tx: createChannel(token, Bob)
+Registry -> Alice: receipt: channelID: c1
+
+Alice -> Token: tx: approve(registry, amount)
+Alice -> Registry: tx: deposit(amount)
+Registry -> Token: tx: transferFrom(alice, amount)
+
+Alice   -> Bob: msg: openPayment: amount, preimageHash
+Alice   -> Bob: msg: preimage
+
+alt ideal case
+    Alice   -> Bob: msg: completePayment: channelState
+else Alice does not complete
+    Bob -> PM: tx: submitPreimage: preimage
+end
+
+Alice o--> Registry: tx: update(round, credits, withdrawals, \n                  hash, expiry, amount)
+
+& Bob o--> Registry:  ... \n...
+
+Alice o--> Registry: tx: trigger
+
+& Bob o--> Registry:  ...
+
+... Δ later...
+
+Alice o--> Registry: tx: finalize
+& Bob o--> Registry:  ...
+
+Registry -> PM: call: revealedBefore(hash, expiry)
+
+Alice o--> Registry: tx: withdraw
+
+@enduml

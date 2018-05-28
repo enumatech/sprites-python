@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+attrs = "*"
+tenacity = "*"
+"e1839a8" = {path = ".", editable = true}
+"web3" = "==4.0.0"
+
+[dev-packages]
+pytest = "*"
+pytest-cov = "*"
+pylint = "*"
+"flake8" = "*"
+ipython = "*"
+astor = "*"
+pytest-lazy-fixture = "*"
+python-language-server = {extras = ["all"]}
+pyls-isort = "*"
+pyls-mypy = "*"
+importmagic = "*"
+epc = "*"
+black = "*"
+
+[pipenv]
+allow_prereleases = true

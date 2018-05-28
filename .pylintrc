@@ -1,0 +1,10 @@
+[MESSAGES CONTROL]
+
+disable =
+    missing-docstring,
+    redefined-outer-name,
+    invalid-name,
+    too-many-arguments,
+    too-many-locals,
+    too-many-instance-attributes,
+    fixme,

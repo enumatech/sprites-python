@@ -1,0 +1,75 @@
+@startuml
+!pragma teoz true
+
+skinparam backgroundColor #EEEEEE
+hide footbox
+'autonumber "<b>00"
+actor Alice #blue
+actor c1 as "Alice or Bob"
+actor Bob #green
+actor c2 as "Bob or Charlie"
+actor Charlie #red
+participant Registry as "Registry\nContract"
+participant Token as "Token\nContract"
+participant PM as "Preimage\nManager\nContract"
+
+title : Sprites Payments (Ideal Case)
+
+Alice    o-> Registry: tx: createChannel(token, Bob)
+Registry o-> Alice: channelID: c1
+Alice    o-> Bob: channelID: c1
+
+Bob      o-> Registry: tx: createChannel(token, Charlie)
+Registry o-> Bob: channelID: c2
+Bob      o-> Charlie: channelID: c1
+
+Alice    o-> Token: tx: approve(registry, amount)
+Alice    o-> Registry: tx: deposit(amount)
+Registry o-> Token: tx: transferFrom(Alice, amount)
+
+Bob      o-> Token: tx: approve(registry, amount)
+Bob      o-> Registry: tx: deposit(amount)
+Registry o-> Token: tx: transferFrom(Bob, amount)
+
+Alice    o-> Charlie: msg: preimage
+
+Alice    o-> Bob: msg: openPayment: amount, preimageHash
+
+Bob      o-> Registry: call: channelState(c1)
+Bob      o-> Bob: verifyPayment
+Bob      o-> Charlie: msg: openPayment: amount, preimageHash
+
+Charlie  o-> Registry: call: channelState(c2)
+Charlie  o-> Charlie: verifyPayment
+
+Bob <-o Charlie: msg: publish preimage
+& Alice <-o Charlie: ...
+
+alt ideal case
+    Alice   o-> Bob: msg: completePayment: channelState
+    Bob     o-> Charlie: msg: completePayment: channelState
+else Alice does not complete
+    Bob     o-> Charlie: msg: completePayment: channelState
+    Bob o-> PM: tx: submitPreimage: preimage
+else Bob does not complete
+    Alice o-> Bob: msg: completePayment: channelState
+    Charlie o-> PM: tx: submitPreimage(preimage)
+end
+
+c1 o-> Registry: tx: update(c1, channelState)
+& c2 o-> Registry: tx: update(c2, channelState)
+
+c1 o-> Registry: tx: trigger(c1)
+& c2 o-> Registry: tx: trigger(c2)
+
+... Δ later for each channel with respective call to trigger...
+
+c1 o-> Registry: tx: finalize(c1)
+& c2 o-> Registry: tx: finalize(c2)
+
+Registry o-> PM: call: revealedBefore(hash, expiry)
+
+c1 o-> Registry: tx: withdraw(c1)
+& c2 o-> Registry: tx: withdraw(c2)
+
+@enduml

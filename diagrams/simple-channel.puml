@@ -1,0 +1,25 @@
+@startuml
+!pragma teoz true
+
+hide footbox
+
+actor "   Alice   " as A
+actor "    Bob    " as B
+
+participant Registry as "Sprites\nContract"
+participant PM as "Preimage\nManager\nContract"
+
+A --> Registry: deposit
+B --> Registry: deposit
+A --> B: $X
+A --> B: $Y
+A <-- B: $Z
+
+A --> Registry: finalize
+Registry --> PM: revealed ?
+
+Registry --> A: disburse
+& Registry --> B: disburse
+
+
+@enduml

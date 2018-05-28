@@ -1,0 +1,24 @@
+@startuml
+!pragma teoz true
+
+hide footbox
+
+actor "   Alice   " as A
+actor "    Bob    " as B
+actor "  Charlie  " as C
+participant Registry as "Sprites\nContract"
+participant PM as "Preimage\nManager\nContract"
+... parties send payments ...
+
+B --> Registry: trigger
+B --> PM: submit preimage
+... parties submit evidence ...
+
+C --> Registry: finalize
+Registry --> PM: revealed ?
+Registry --> A: disburse
+& Registry -> B: disburse
+& Registry --> C: disburse
+
+
+@enduml
