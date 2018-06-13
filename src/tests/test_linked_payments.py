@@ -14,6 +14,7 @@ def channels(alice, bob, charlie, token, deposit_amount):
     return channels
 
 
+@pytest.mark.skip
 def test_linked_payment(alice, bob, charlie, channels, amount):
 
     # desired
