@@ -9,7 +9,7 @@ channels https://github.com/amiller/sprites.
 ### Development
 
 - Install [nix](https://nixos.org/nix/download.html).
-- Install `direnv`: `nix-env -iA nixpkgs.direnv`.
+- Install `direnv` by running `nix-env -iA nixpkgs.direnv`.
 
 Activate `direnv`, compile contracts and start a `geth` dev chain.
 ```bash
@@ -21,15 +21,12 @@ Run the tests in another terminal
 py.test
 ```
 
-#### Caveats
-
-`Pip` can break because `pipenv` updates `pip` inside the virtualenv environment
-but the `pip` entrypoint script in the virtualenv imports the `pip` packages
-installed with `nix` due to that showing up in `PYTHONPATH` set by nix.
-
-However if we unset `PYTHONPATH` our tests may fail because some of the packages
-are installed in the virtualenv, probably because `PYTHONPATH` is set when
-these packages are installed.
+#### Formatting
+Just run
+```
+pipenv run black /path/to/file
+```
+or install a [black](https://github.com/ambv/black) add-on for your favorite editor.
 
 #### Updating Dependencies
 
@@ -44,13 +41,6 @@ If that doesn't work either there are some instructions for clearing caches in t
 github issue. Sometimes the `lock` step takes way too much time, haven't found out another
 solution than to just wait it out.
 
-#### Formatting
-Just run
-```
-pipenv run black /path/to/file
-```
-or install a `black` add-on for your favorite editor.
-
 #### Adding Dependencies
 
 - For non-python dependencies edit `shell.nix`.
@@ -59,6 +49,16 @@ or install a `black` add-on for your favorite editor.
 ```
 pipenv install my_dependency
 ```
+
+#### Caveats
+
+`Pip` can break because `pipenv` updates `pip` inside the virtualenv environment
+but the `pip` entrypoint script in the virtualenv imports the `pip` packages
+installed with `nix` due to that showing up in `PYTHONPATH` set by nix.
+
+However if we unset `PYTHONPATH` our tests may fail because some of the packages
+are installed in the virtualenv, probably because `PYTHONPATH` is set when
+these packages are installed.
 
 ### ChannelState
 
@@ -69,7 +69,6 @@ pipenv install my_dependency
 - amount
 - expiry
 - direction of payment (new addition)
-
 
 ### Channel Opening and Payment
 
@@ -159,8 +158,3 @@ The sequence of events would be
 ```
 After receiving x all the nice actors would send unconditional payments (and
 if necessary dispute the incoming payment).
-￼
-
-### History
-
-Some commits on enuma fork, into monorepo after https://github.com/enumatech/sprites/tree/ea7a3bf87262885c90bc2a4c1a02479bc453bd11 .
