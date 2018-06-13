@@ -1,9 +1,27 @@
+# Sprites
+
+- Sprites paper: https://arxiv.org/abs/1702.05812
+- PISA: http://www0.cs.ucl.ac.uk/staff/P.McCorry/pisa.pdf
+
+This project was based on a proof of concept implementation of the sprites
+channels https://github.com/amiller/sprites.
+
 ### Development
 
+- Install [nix](https://nixos.org/nix/download.html).
+- Install `direnv`: `nix-env -iA nixpkgs.direnv`.
+
+Activate `direnv`, compile contracts and start a `geth` dev chain.
 ```bash
 direnv allow     # sets up nix and pipenv
 overmind start   # or just overmind s
 ```
+Run the tests in another terminal
+```
+py.test
+```
+
+#### Caveats
 
 `Pip` can break because `pipenv` updates `pip` inside the virtualenv environment
 but the `pip` entrypoint script in the virtualenv imports the `pip` packages
@@ -12,6 +30,8 @@ installed with `nix` due to that showing up in `PYTHONPATH` set by nix.
 However if we unset `PYTHONPATH` our tests may fail because some of the packages
 are installed in the virtualenv, probably because `PYTHONPATH` is set when
 these packages are installed.
+
+#### Updating Dependencies
 
 If you don't have a `Pipfile.lock` to install we may hit https://github.com/pypa/pipenv/issues/1802
 when generating the lock file. Until that is fixed, a workaround for this:
@@ -53,7 +73,7 @@ pipenv install my_dependency
 
 ### Channel Opening and Payment
 
-![](diagrams/three-parties.png)
+![Three party payment diagram](./diagrams/three-parties.svg)
 
 Note: this section is WIP, need to verify against paper and consider `credits` and `withdrawals`
 as well as triggering the contract to set a deadline.
