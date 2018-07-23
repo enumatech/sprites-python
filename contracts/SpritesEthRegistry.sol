@@ -124,9 +124,9 @@ contract SpritesEthRegistry {
 
     // Increment on new deposit
     // user first needs to approve us to transfer Ether
-    function deposit(uint channelID, uint amount) public onlyplayers(channelID) returns (bool) {
+    function deposit(uint channelID) public payable onlyplayers(channelID) returns (bool) {
         Player storage player = lookupPlayer(channelID);
-        player.deposit += amount;
+        player.deposit += msg.value;
     }
 
     function getDeposit(uint channelID) public view returns (uint) {

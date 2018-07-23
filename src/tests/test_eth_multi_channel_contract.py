@@ -84,22 +84,23 @@ def test_deposit_can_make_additional_deposit(eth_channel, acting_party, deposit_
     original_deposit = eth_channel.get_deposit(who=acting_party)
     assert original_deposit > 0
     eth_channel.deposit(acting_party, amount=deposit_amount)
-    assert eth_channel.get_deposit(who=acting_party) == original_deposit + deposit_amount + 1
+    assert eth_channel.get_deposit(who=acting_party) == original_deposit + deposit_amount
 
 
-# @pytest.mark.usefixtures("channel_with_deposit")
-# def test_withdraw_cannot_withdraw_without_trigger(token, channel, acting_party):
-#     original_balance = token.balanceOf(acting_party.address).call()
-#     channel.withdraw(who=acting_party)
-#     assert token.balanceOf(acting_party.address).call() == original_balance
+@pytest.mark.usefixtures("channel_with_deposit")
+def test_withdraw_cannot_withdraw_without_trigger(eth_channel, acting_party):
+    #original_balance = token.balanceOf(acting_party.address).call()
+    original_balance = eth_channel.get_deposit(who=acting_party)
+    eth_channel.withdraw(who=acting_party)
+    assert eth_channel.get_deposit(who=acting_party) == original_balance
 
 
-# # XXX the fixture on top is executed last?
+# # # XXX the fixture on top is executed last?
 
 
 # @pytest.mark.usefixtures("finalized_channel")
-# def test_withdraw_can_withdraw(web3, token, channel, acting_party):
-#     channel.withdraw(who=acting_party)
+# def test_withdraw_can_withdraw(web3, eth_channel, acting_party):
+#     eth_channel.withdraw(who=acting_party)
 #     assert token.balanceOf(acting_party.address).call() == FUND_TOKEN_AMOUNT
 
 

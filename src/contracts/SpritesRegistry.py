@@ -21,8 +21,8 @@ class SpritesRegistry:
     def createChannel(self, other, tokenAddress):
         return self._contract.functions.createChannel(other, tokenAddress)
 
-    def deposit(self, channelID, amount):
-        return self._contract.functions.deposit(channelID, amount)
+    def deposit(self, channelID):
+        return self._contract.functions.deposit(channelID)
 
     def finalize(self, channelID):
         return self._contract.functions.finalize(channelID)

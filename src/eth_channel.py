@@ -66,15 +66,9 @@ class Channel(Base):
     def deposit(self, sender, amount):
 
 
-        tx_args = {"from": sender.address, "gas": GAS}
-        # tx_hash = token.approve(self.registry._contract.address, amount).transact(
-        #     tx_args
-        # )
-
-        # receipt = check_tx(self.web3, tx_hash)
-
-        # can we inject the tx arguments instead?
-        tx_hash = self.registry.deposit(self.channel_id, amount).transact(tx_args)
+        tx_args = {"from": sender.address, "gas": GAS, "value": amount}
+        
+        tx_hash = self.registry.deposit(self.channel_id).transact(tx_args)
         receipt = check_tx(self.web3, tx_hash)
 
         return receipt
