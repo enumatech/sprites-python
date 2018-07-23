@@ -79,7 +79,7 @@ contract SpritesEthRegistry {
         return keccak256(r);
     }
 
-    function SpritesRegistry(address preimageManagerAddress) public {
+    function SpritesEthRegistry(address preimageManagerAddress) public {
         pm = PreimageManager(preimageManagerAddress);
         channelCounter = 0;
     }

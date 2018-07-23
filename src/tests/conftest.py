@@ -8,6 +8,7 @@ from web3 import HTTPProvider, Web3
 from web3.middleware import geth_poa_middleware
 
 from ..channel import Channel, ChannelState, Payment
+from ..eth_channel import Channel as EthChannel
 from ..contracts.dappsys import DSToken
 from ..contracts.PreimageManager import PreimageManager
 from ..contracts.SpritesRegistry import SpritesRegistry
@@ -174,6 +175,29 @@ def channel(
     return Channel(
         web3, registry, preimage_manager, token, channel_id, acting_party, other_party
     )
+
+
+@pytest.fixture
+def eth_channel(
+    web3,
+    eth_registry: SpritesEthRegistry,
+    preimage_manager: PreimageManager,
+    acting_party,
+    other_party,
+):
+    tx_hash = eth_registry.createChannel(
+        other_party.address
+    ).transact(
+        {"from": acting_party.address, "gas": GAS}
+    )
+
+    receipt = web3.eth.getTransactionReceipt(tx_hash)
+    channel_id = web3.toInt(hexstr=receipt.logs[0].data)
+
+    return EthChannel(
+        web3, eth_registry, preimage_manager, channel_id, acting_party, other_party
+    )
+
 
 
 @pytest.fixture(params=["alice", "bob"])
