@@ -110,3 +110,5 @@ out/
 .projectile
 
 keystore/
+
+.DS_Store
