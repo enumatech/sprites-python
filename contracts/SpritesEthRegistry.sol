@@ -133,6 +133,10 @@ contract SpritesEthRegistry {
         return lookupPlayer(channelID).deposit;
     }
 
+    function getCredit(uint channelID) public view returns (int) {
+        return lookupPlayer(channelID).credit;
+    }
+
     function getStatus(uint channelID) public view returns (Status) {
         return channels[channelID].status;
     }
@@ -183,7 +187,7 @@ contract SpritesEthRegistry {
         credits[0] = player.credit;
         credits[1] = other.credit;
         withdrawals[0] = player.withdrawal;
-        withdrawals[1] = player.withdrawal;
+        withdrawals[1] = other.withdrawal;
     }
 
     function compute_hash(

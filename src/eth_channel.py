@@ -77,6 +77,10 @@ class Channel(Base):
         who = who or getattr(self, side)
         return self.registry.getDeposit(self.channel_id).call({"from": who.address})
 
+    def get_credit(self, who=None, side=None):
+        who = who or getattr(self, side)
+        return self.registry.getCredit(self.channel_id).call({"from": who.address})
+
     def get_status(self):
         return self.registry.getStatus(self.channel_id).call()
 

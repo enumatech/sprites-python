@@ -27,6 +27,9 @@ class SpritesRegistry:
     def finalize(self, channelID):
         return self._contract.functions.finalize(channelID)
 
+    def getCredit(self, channelID):
+        return self._contract.functions.getCredit(channelID)
+
     def getDeadline(self, channelID):
         return self._contract.functions.getDeadline(channelID)
 
