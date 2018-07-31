@@ -1,7 +1,7 @@
 """Test for Sprites Eth Payment Channels"""
 import pytest
 from web3.utils.encoding import to_hex
-
+# import logging
 from ..eth_channel import Channel, Payment
 
 from ..util import (
@@ -14,6 +14,7 @@ from ..util import (
     wait_blocks,
 )
 
+# log = logging.getLogger(__name__)
 pytestmark = pytest.mark.usefixtures(
     "web3", "alice", "bob", "charlie", "acting_party", "other_party", "eth_channel"
 )
@@ -21,7 +22,7 @@ pytestmark = pytest.mark.usefixtures(
 TOKEN_NAMES = ["WETH", "OAX"]
 THIRD_PARTY_NAME = "charlie"
 FUND_TOKEN_AMOUNT = 100
-DEPOSIT_AMOUNTS = {"alice": 9, "bob": 10}
+DEPOSIT_AMOUNTS = {"alice": 900000, "bob": 1000000}
 SEND_AMOUNT = 7
 # two parties are equivalent / symmetric in many tests
 
@@ -40,6 +41,7 @@ def send_amount():
 def channel_with_deposit(eth_channel, acting_party, deposit_amount):
     eth_channel.deposit(sender=acting_party, amount=deposit_amount)
     return eth_channel
+
 
 def test_channel_can_create_channel(
     web3, eth_registry, acting_party, other_party, eth_channel
@@ -88,10 +90,11 @@ def test_deposit_can_make_additional_deposit(eth_channel, acting_party, deposit_
 
 
 @pytest.mark.usefixtures("channel_with_deposit")
-def test_withdraw_cannot_withdraw_without_trigger(eth_channel, acting_party):
-    original_balance = eth_channel.get_deposit(who=acting_party)
+def test_withdraw_cannot_withdraw_without_trigger(web3, eth_channel, acting_party):
+    original_balance = web3.eth.getBalance(acting_party.address)
+   
     eth_channel.withdraw(who=acting_party)
-    assert eth_channel.get_deposit(who=acting_party) == original_balance
+    assert web3.eth.getBalance(acting_party.address) <= original_balance #gas?
 
 
 @pytest.fixture
@@ -104,9 +107,12 @@ def finalized_channel(web3, channel_with_deposit, acting_party):
     return channel_with_deposit
 
 @pytest.mark.usefixtures("finalized_channel")
-def test_withdraw_can_withdraw(web3, eth_channel, acting_party, deposit_amount):
+def test_withdraw_can_withdraw(web3, eth_channel, acting_party):
+    original_balance = web3.eth.getBalance(acting_party.address)
+    deposit = eth_channel.get_deposit(acting_party)
+
     eth_channel.withdraw(who=acting_party)
-    assert eth_channel.get_deposit(who=acting_party) == deposit_amount
+    assert web3.eth.getBalance(acting_party.address) > original_balance
 
 @pytest.fixture
 def triggered_mock_channel(eth_channel, acting_party):

@@ -153,9 +153,15 @@ contract SpritesEthRegistry {
     // XXX does currently not support incremental withdrawals
     // XXX check if failing assert undoes all changes made in tx
     function withdraw(uint channelID) public onlyplayers(channelID) {
+        
         Player storage player = lookupPlayer(channelID);
-        // uint toWithdraw = player.withdrawal - player.withdrawn;
+        uint toWithdraw = player.withdrawal - player.withdrawn;
+        
         player.withdrawn = player.withdrawal;
+        // TODO verify atomicity 
+        if (toWithdraw > 0) {
+            player.addr.transfer(toWithdraw);
+        }
     }
 
     // XXX the experimental ABI encoder supports return struct, but as of 2018 04 08
