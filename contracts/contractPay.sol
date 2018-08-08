@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.24;
 
 // Note: Initial version does NOT support concurrent conditional payments!
 

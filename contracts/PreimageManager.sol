@@ -1,4 +1,4 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.24;
 
 contract PreimageManager {
     mapping ( bytes32 => uint ) timestamp;

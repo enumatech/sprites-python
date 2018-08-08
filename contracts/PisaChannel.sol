@@ -1,8 +1,8 @@
-// Author: Patrick McCorry 
-// State channel construction from https://eprint.iacr.org/2018/582 
-// Can be used for any state channel application - assuming it implements the transition function 
+// Author: Patrick McCorry
+// State channel construction from https://eprint.iacr.org/2018/582
+// Can be used for any state channel application - assuming it implements the transition function
 
-pragma solidity ^0.4.7;
+pragma solidity ^0.4.24;
 
 interface Application {
 

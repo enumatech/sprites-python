@@ -1,8 +1,7 @@
 with import (
   builtins.fetchTarball {
-   # Tue Apr 17 15:50:00 HKT 2018 pipenv 11.10.0
-    url = "https://github.com/sveitser/nixpkgs/archive/835e86adfd33b10858751bf329a43e67ae89761f.tar.gz";
-    sha256 = "129wvirbp43n8hkz0lywzhdv1sa2cjxs4lwr7wasq7p3sa2zms6b";
+    url = "https://releases.nixos.org/nixpkgs/nixpkgs-18.09pre147700.03e47c388ac/nixexprs.tar.xz";
+    sha256 = "06prf50w9w5qkrjhxgj7dkwwxfanh9akv3qfb6ibh8mqp1jmnwqm";
   }
 ) {};
 
