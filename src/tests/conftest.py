@@ -12,6 +12,7 @@ from ..eth_channel import Channel as EthChannel
 from ..contracts.dappsys import DSToken
 from ..contracts.PreimageManager import PreimageManager
 from ..contracts.SpritesRegistry import SpritesRegistry
+from ..contracts.SpritesEthRegistry import SpritesEthRegistry
 from ..util import GAS, check_tx, deploy_contract, fund_account, generate_preimage, mint
 
 GETH_URL = "http://localhost:8545"
@@ -107,6 +108,18 @@ def registry(web3, deployer, preimage_manager):
         "SpritesRegistry.sol",
         "SpritesRegistry",
         SpritesRegistry,
+        args=[preimage_manager._contract.address],
+    )
+
+
+@pytest.fixture(scope="session")
+def eth_registry(web3, deployer, preimage_manager):
+    return deploy_contract(
+        web3,
+        deployer,
+        "SpritesEthRegistry.sol",
+        "SpritesEthRegistry",
+        SpritesEthRegistry,
         args=[preimage_manager._contract.address],
     )
 

@@ -10,7 +10,7 @@ class PreimageManager:
         return self._contract.functions.submitPreimage(x)
 
 
-class SpritesRegistry:
+class SpritesEthRegistry:
 
     def __init__(self, contract):
         self._contract = contract
@@ -18,14 +18,17 @@ class SpritesRegistry:
     def channels(self, arg):
         return self._contract.functions.channels(arg)
 
-    def createChannel(self, other, tokenAddress):
-        return self._contract.functions.createChannel(other, tokenAddress)
+    def createChannel(self, other):
+        return self._contract.functions.createChannel(other)
 
-    def deposit(self, channelID, amount):
-        return self._contract.functions.deposit(channelID, amount)
+    def deposit(self, channelID):
+        return self._contract.functions.deposit(channelID)
 
     def finalize(self, channelID):
         return self._contract.functions.finalize(channelID)
+
+    def getCredit(self, channelID):
+        return self._contract.functions.getCredit(channelID)
 
     def getDeadline(self, channelID):
         return self._contract.functions.getDeadline(channelID)
