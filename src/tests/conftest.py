@@ -204,7 +204,7 @@ def eth_channel(
         {"from": acting_party.address, "gas": GAS}
     )
 
-    receipt = web3.eth.getTransactionReceipt(tx_hash)
+    receipt = check_tx(web3, tx_hash)
     channel_id = web3.toInt(hexstr=receipt.logs[0].data)
 
     return EthChannel(
