@@ -5,17 +5,15 @@ with import (
   }
 ) {};
 
-let
-  geth = (lib.getBin go-ethereum);
-
-in mkShell rec {
+mkShell rec {
   # LC_ALL="en_US.UTF-8";
   buildInputs = [
     autoconf
     automake
     coreutils
+    direnv
     entr
-    geth
+    go-ethereum
     gmp
     grc
     jq
@@ -28,5 +26,4 @@ in mkShell rec {
     secp256k1
     solc
   ];
-
 }

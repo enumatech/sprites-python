@@ -1,0 +1,25 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: lnl7/nix
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}-2
+            - v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}
+            - v1-{{ checksum "shell.nix" }}
+            - v1
+
+      - run: ci/setup-nix
+      - run: nix-shell --run ci/run
+
+      - save_cache:
+          paths:
+            - /nix
+            - /root/.cache
+            - /root/.local/share/virtualenvs
+          key: v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}-2

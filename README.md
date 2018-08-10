@@ -1,5 +1,7 @@
 # Sprites
 
+[![CircleCI](https://circleci.com/gh/enumatech/sprites-python.svg?style=svg)](https://circleci.com/gh/enumatech/sprites-python)
+
 - Public chat: https://riot.im/app/#/room/#sprites:matrix.org
 - Sprites paper: https://arxiv.org/abs/1702.05812
 - PISA: http://www0.cs.ucl.ac.uk/staff/P.McCorry/pisa.pdf

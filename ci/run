@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+
+# Prevent:
+#
+#   RuntimeError: Click will abort further execution because Python 3 was configured to use
+#     ASCII as encoding for the environment.  Consult http://click.pocoo.org/python3/for mitigation steps.
+#
+export LOCALE_ARCHIVE=$(nix-build '<nixpkgs>' -A glibcLocales)/lib/locale/locale-archive
+export LC_ALL="en_US.utf8"
+export LANG="en_US.UTF-8"
+
+bin/solc.sh "contracts/*.sol"
+
+bin/geth.sh &
+
+echo "allowing direnv ..."
+direnv allow
+
+echo "activating direnv ..."
+exec direnv exec . py.test

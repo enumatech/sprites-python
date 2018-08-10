@@ -11,7 +11,7 @@ from ..channel import Channel, ChannelState, Payment
 from ..contracts.dappsys import DSToken
 from ..contracts.PreimageManager import PreimageManager
 from ..contracts.SpritesRegistry import SpritesRegistry
-from ..util import GAS, deploy_contract, fund_account, generate_preimage, mint
+from ..util import GAS, check_tx, deploy_contract, fund_account, generate_preimage, mint
 
 GETH_URL = "http://localhost:8545"
 PARTY_NAMES = ["alice", "bob"]
@@ -139,7 +139,7 @@ def mock_channel(
         {"from": acting_party.address, "gas": GAS}
     )
 
-    receipt = web3.eth.getTransactionReceipt(tx_hash)
+    receipt = check_tx(web3, tx_hash)
     channel_id = web3.toInt(hexstr=receipt.logs[0].data)
 
     return Channel(
@@ -168,7 +168,7 @@ def channel(
         {"from": acting_party.address, "gas": GAS}
     )
 
-    receipt = web3.eth.getTransactionReceipt(tx_hash)
+    receipt = check_tx(web3, tx_hash)
     channel_id = web3.toInt(hexstr=receipt.logs[0].data)
 
     return Channel(
