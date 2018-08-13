@@ -1,9 +1,13 @@
+let
+  pkgs = import <nixpkgs> { };
+  pinnedNixpkgs = pkgs.lib.importJSON ./nixpkgs.json;
+in
 with import (
   builtins.fetchTarball {
-    url = "https://releases.nixos.org/nixpkgs/nixpkgs-18.09pre147700.03e47c388ac/nixexprs.tar.xz";
-    sha256 = "06prf50w9w5qkrjhxgj7dkwwxfanh9akv3qfb6ibh8mqp1jmnwqm";
+    url = pinnedNixpkgs.url;
+    sha256 = pinnedNixpkgs.sha256;
   }
-) {};
+) { };
 
 mkShell rec {
   # LC_ALL="en_US.UTF-8";
