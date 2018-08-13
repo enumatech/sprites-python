@@ -33,16 +33,8 @@ or install a [black](https://github.com/ambv/black) add-on for your favorite edi
 
 #### Updating Dependencies
 
-If you don't have a `Pipfile.lock` to install we may hit https://github.com/pypa/pipenv/issues/1802
-when generating the lock file. Until that is fixed, a workaround for this:
-
-```bash
-pipenv install --verbose --dev --skip-lock
-pipenv lock --pre --clear
-```
-If that doesn't work either there are some instructions for clearing caches in the linked
-github issue. Sometimes the `lock` step takes way too much time, haven't found out another
-solution than to just wait it out.
+- For nix: `utils/update-nix`.
+- For pipenv: `pipenv update --dev`.
 
 #### Adding Dependencies
 
@@ -52,16 +44,6 @@ solution than to just wait it out.
 ```
 pipenv install my_dependency
 ```
-
-#### Caveats
-
-`Pip` can break because `pipenv` updates `pip` inside the virtualenv environment
-but the `pip` entrypoint script in the virtualenv imports the `pip` packages
-installed with `nix` due to that showing up in `PYTHONPATH` set by nix.
-
-However if we unset `PYTHONPATH` our tests may fail because some of the packages
-are installed in the virtualenv, probably because `PYTHONPATH` is set when
-these packages are installed.
 
 ### ChannelState
 
