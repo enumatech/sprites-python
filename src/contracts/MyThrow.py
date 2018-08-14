@@ -1,5 +1,4 @@
 class MyThrow:
-
     def __init__(self, contract):
         self._contract = contract
 

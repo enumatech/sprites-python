@@ -1,5 +1,14 @@
 from ast import (
-    arg, arguments, Assign, Attribute, Call, ClassDef, FunctionDef, Return, Name, Module
+    arg,
+    arguments,
+    Assign,
+    Attribute,
+    Call,
+    ClassDef,
+    FunctionDef,
+    Return,
+    Name,
+    Module,
 )
 
 
@@ -63,7 +72,6 @@ def wrap_module(class_defs):
 
 def make_python_contract(contract_name, abi):
 
-    constructor = None
     functions = {}
     # events = {}  # XXX todo
 
@@ -79,8 +87,6 @@ def make_python_contract(contract_name, abi):
             else:
                 if len(item["inputs"]) > len(functions[name]["inputs"]):
                     functions[name] = item
-        elif _type == "constructor":
-            constructor = item
 
     init_def = make_init()
     function_defs = [

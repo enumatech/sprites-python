@@ -1,5 +1,4 @@
 class PreimageManager:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -11,7 +10,6 @@ class PreimageManager:
 
 
 class SpritesRegistry:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -54,16 +52,53 @@ class SpritesRegistry:
     def trigger(self, channelID):
         return self._contract.functions.trigger(channelID)
 
-    def update(self, channelID, sig, credits, withdrawals, round,
-        preimageHash, recipient, amount, expiry):
-        return self._contract.functions.update(channelID, sig, credits,
-            withdrawals, round, preimageHash, recipient, amount, expiry)
+    def update(
+        self,
+        channelID,
+        sig,
+        credits,
+        withdrawals,
+        round,
+        preimageHash,
+        recipient,
+        amount,
+        expiry,
+    ):
+        return self._contract.functions.update(
+            channelID,
+            sig,
+            credits,
+            withdrawals,
+            round,
+            preimageHash,
+            recipient,
+            amount,
+            expiry,
+        )
 
-    def verifyUpdate(self, channelID, sig, credits, withdrawals, round,
-        preimageHash, recipient, amount, expiry):
-        return self._contract.functions.verifyUpdate(channelID, sig,
-            credits, withdrawals, round, preimageHash, recipient, amount,
-            expiry)
+    def verifyUpdate(
+        self,
+        channelID,
+        sig,
+        credits,
+        withdrawals,
+        round,
+        preimageHash,
+        recipient,
+        amount,
+        expiry,
+    ):
+        return self._contract.functions.verifyUpdate(
+            channelID,
+            sig,
+            credits,
+            withdrawals,
+            round,
+            preimageHash,
+            recipient,
+            amount,
+            expiry,
+        )
 
     def withdraw(self, channelID):
         return self._contract.functions.withdraw(channelID)

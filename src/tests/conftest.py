@@ -1,6 +1,4 @@
 from collections import namedtuple
-from time import sleep
-
 import eth_account
 import pytest
 from eth_utils.address import to_checksum_address
@@ -66,9 +64,9 @@ def guy(web3):
     return web3.eth.accounts[0]
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def tx_args(guy):
-    return {'from': guy, 'gas': GAS}
+    return {"from": guy, "gas": GAS}
 
 
 def _get_account(web3, guy, name):
@@ -164,15 +162,40 @@ def channel(
 ):
     tx_hash = registry.createChannel(
         other_party.address, token._contract.address
-    ).transact(
-        {"from": acting_party.address, "gas": GAS}
-    )
+    ).transact({"from": acting_party.address, "gas": GAS})
 
     receipt = check_tx(web3, tx_hash)
     channel_id = web3.toInt(hexstr=receipt.logs[0].data)
 
     return Channel(
         web3, registry, preimage_manager, token, channel_id, acting_party, other_party
+    )
+
+
+@pytest.fixture
+def other_channel(
+    web3,
+    other_token: DSToken,
+    registry: SpritesRegistry,
+    preimage_manager: PreimageManager,
+    acting_party,
+    other_party,
+):
+    tx_hash = registry.createChannel(
+        other_party.address, other_token._contract.address
+    ).transact({"from": acting_party.address, "gas": GAS})
+
+    receipt = check_tx(web3, tx_hash)
+    channel_id = web3.toInt(hexstr=receipt.logs[0].data)
+
+    return Channel(
+        web3,
+        registry,
+        preimage_manager,
+        other_token,
+        channel_id,
+        acting_party,
+        other_party,
     )
 
 

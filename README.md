@@ -21,13 +21,13 @@ overmind start   # or just overmind s
 ```
 Run the tests in another terminal
 ```
-py.test
+make test
 ```
 
 #### Formatting
 Just run
 ```
-pipenv run black /path/to/file
+make format
 ```
 or install a [black](https://github.com/ambv/black) add-on for your favorite editor.
 

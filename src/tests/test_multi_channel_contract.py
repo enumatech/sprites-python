@@ -1,13 +1,9 @@
 """Test for Sprites Payment Channels"""
 import pytest
-from web3.utils.encoding import to_hex
 
-from ..channel import Channel, Payment
-from ..contracts.dappsys import DSToken
-from ..contracts.SpritesRegistry import SpritesRegistry
+from ..channel import Payment
 from ..util import (
     DELTA,
-    GAS,
     ZERO_ADDRESS,
     ZERO_PREIMAGE_HASH,
     TransactionFailed,

@@ -3,23 +3,21 @@ version: 2
 jobs:
   build:
     docker:
-      - image: lnl7/nix
+      - image: nixorg/nix:circleci
     steps:
       - checkout
 
       - restore_cache:
           keys:
-            - v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}-2
-            - v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}
-            - v1-{{ checksum "shell.nix" }}
-            - v1
+            - v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile.lock" }}-2
 
       - run: ci/setup-nix
-      - run: nix-shell --run ci/run
+      - run: direnv exec . make check
+      - run: direnv exec . ci/run
 
       - save_cache:
           paths:
             - /nix
             - /root/.cache
             - /root/.local/share/virtualenvs
-          key: v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile" }}-2
+          key: v1-{{ checksum "shell.nix" }}-{{ checksum "Pipfile.lock" }}-2

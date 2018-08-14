@@ -72,7 +72,6 @@ def sign(hash_to_sign, private_key):
 
 
 def check_status(fun):
-
     @functools.wraps(fun)
     def wrapper(web3, *args, **kwargs):
         tx_hash = fun(web3, *args, **kwargs)

@@ -13,7 +13,11 @@ from .contracts.dappsys import DSToken
 from .contracts.PreimageManager import PreimageManager
 from .contracts.SpritesRegistry import SpritesRegistry
 from .exceptions import (
-    BadSignature, ForbiddenStateChange, Overpayment, Overwithdrawal, PaymentError
+    BadSignature,
+    ForbiddenStateChange,
+    Overpayment,
+    Overwithdrawal,
+    PaymentError,
 )
 from .util import (
     COMMANDS,
@@ -49,7 +53,6 @@ MESSAGE_INPUTS = [arg for arg in UPDATE_ARGUMENTS if arg != "sig"]
 
 @attr.s
 class Base:
-
     def to(self, *args, **kwargs):
         return attr.evolve(copy.deepcopy(self), *args, **kwargs)
 

@@ -3,8 +3,10 @@ import json
 import os
 import sys
 from collections import defaultdict
+from configparser import ConfigParser
 
 import astor
+import black
 
 from .code_gen import make_python_contract, wrap_module
 
@@ -14,6 +16,9 @@ CONTRACTS_DIR = "src/contracts"
 def cli():
 
     os.makedirs(CONTRACTS_DIR, exist_ok=True)
+    cnfparser = ConfigParser()
+    cnfparser.read(".flake8")
+    line_length = int(cnfparser["flake8"]["max-line-length"])
 
     contract_fname = sys.argv[1]
 
@@ -45,9 +50,10 @@ def cli():
         path = os.path.join(CONTRACTS_DIR, fname)
         new_paths.append(path)
         source_code = astor.to_source(wrap_module(class_defs))
+        formatted_source_code = black.format_str(source_code, line_length)
 
         with open(path, "w") as filehandle:
-            filehandle.write(source_code)
+            filehandle.write(formatted_source_code)
 
     to_remove = set(existing_paths) - set(new_paths)
     for filename in to_remove:

@@ -1,5 +1,4 @@
 class DSAuth:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -17,13 +16,11 @@ class DSAuth:
 
 
 class DSAuthEvents:
-
     def __init__(self, contract):
         self._contract = contract
 
 
 class DSAuthority:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -32,13 +29,11 @@ class DSAuthority:
 
 
 class DSExec:
-
     def __init__(self, contract):
         self._contract = contract
 
 
 class DSGuard:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -68,13 +63,11 @@ class DSGuard:
 
 
 class DSGuardEvents:
-
     def __init__(self, contract):
         self._contract = contract
 
 
 class DSGuardFactory:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -86,13 +79,11 @@ class DSGuardFactory:
 
 
 class DSMath:
-
     def __init__(self, contract):
         self._contract = contract
 
 
 class DSMultiVault:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -122,13 +113,11 @@ class DSMultiVault:
 
 
 class DSNote:
-
     def __init__(self, contract):
         self._contract = contract
 
 
 class DSRoles:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -166,8 +155,7 @@ class DSRoles:
         return self._contract.functions.setPublicCapability(code, sig, enabled)
 
     def setRoleCapability(self, role, code, sig, enabled):
-        return self._contract.functions.setRoleCapability(role, code, sig,
-            enabled)
+        return self._contract.functions.setRoleCapability(role, code, sig, enabled)
 
     def setRootUser(self, who, enabled):
         return self._contract.functions.setRootUser(who, enabled)
@@ -177,7 +165,6 @@ class DSRoles:
 
 
 class DSStop:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -204,7 +191,6 @@ class DSStop:
 
 
 class DSThing:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -222,7 +208,6 @@ class DSThing:
 
 
 class DSToken:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -291,7 +276,6 @@ class DSToken:
 
 
 class DSTokenBase:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -315,7 +299,6 @@ class DSTokenBase:
 
 
 class DSVault:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -351,7 +334,6 @@ class DSVault:
 
 
 class ERC20:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -375,6 +357,5 @@ class ERC20:
 
 
 class ERC20Events:
-
     def __init__(self, contract):
         self._contract = contract

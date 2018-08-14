@@ -5,14 +5,9 @@ import pytest
 from eth_account import Account
 
 from ..contracts.SpritesRegistry import SpritesRegistry
-from ..channel import Payment, ChannelState, SignedState
-from ..util import defunct_hash_message, hash_and_sign, check_tx, GAS
+from ..channel import SignedState
+from ..util import defunct_hash_message, hash_and_sign, check_tx
 from ..exceptions import BadSignature, TransactionFailed
-
-
-@pytest.fixture
-def signed_payment(mock_channel, alice):
-    p = Payment()
 
 
 @pytest.fixture

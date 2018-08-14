@@ -18,21 +18,19 @@ def channels(alice, bob, charlie, token, deposit_amount):
 def test_linked_payment(alice, bob, charlie, channels, amount):
 
     # desired
-    path = alice.find_path(charlie, amount=amount)
+    # path = alice.find_path(charlie, amount=amount)
 
-    alice.create_topic(payment_id)
+    # alice.create_topic(payment_id)
 
+    # linked_payment = alice.linked_payment([bob, charlie], amount)
 
+    # charlie.receive_payment_secret(linked_payment.secret)
 
+    # alice.open_payment(bob, amount)
+    # bob.open_payment(charlie, amount)
 
-    linked_payment = alice.linked_payment([bob, charlie], amount)
+    # charlie.publish([alice, bob], linked_payment.secret)
 
-    charlie.receive_payment_secret(linked_payment.secret)
-
-    alice.open_payment(bob, amount)
-    bob.open_payment(charlie, amount)
-
-    charlie.publish([alice, bob], linked_payment.secret)
-
-    alice.complete_payment()
-    bob.complete_payment()
+    # alice.complete_payment()
+    # bob.complete_payment()
+    pass

@@ -1,6 +1,5 @@
 import pytest
 
-from ..channel import ChannelState, Payment
 from ..exceptions import ForbiddenStateChange, Overpayment, Overwithdrawal, PaymentError
 
 p = pytest.mark.parametrize

@@ -1,5 +1,4 @@
 class PreimageManager:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -11,7 +10,6 @@ class PreimageManager:
 
 
 class SpriteChannel:
-
     def __init__(self, contract):
         self._contract = contract
 
@@ -49,8 +47,9 @@ class SpriteChannel:
         return self._contract.functions.trigger()
 
     def update(self, sig, r, _credits, _withdrawals, _hash, _expiry, _amount):
-        return self._contract.functions.update(sig, r, _credits,
-            _withdrawals, _hash, _expiry, _amount)
+        return self._contract.functions.update(
+            sig, r, _credits, _withdrawals, _hash, _expiry, _amount
+        )
 
     def verifySignature(self, pub, h, v, r, s):
         return self._contract.functions.verifySignature(pub, h, v, r, s)
