@@ -1,57 +1,19 @@
 """Test for Sprites Payment Channels"""
 import pytest
 
+from .conftest import FUND_TOKEN_AMOUNT
 from ..channel import Payment
 from ..util import (
     DELTA,
     ZERO_ADDRESS,
     ZERO_PREIMAGE_HASH,
     TransactionFailed,
-    fund_token,
     wait_blocks,
 )
 
 pytestmark = pytest.mark.usefixtures(
     "web3", "alice", "bob", "charlie", "acting_party", "other_party", "channel"
 )
-
-TOKEN_NAMES = ["WETH", "OAX"]
-THIRD_PARTY_NAME = "charlie"
-FUND_TOKEN_AMOUNT = 100
-DEPOSIT_AMOUNTS = {"alice": 9, "bob": 10}
-SEND_AMOUNT = 7
-# two parties are equivalent / symmetric in many tests
-
-
-@pytest.fixture
-def deposit_amount(acting_party_name):
-    return DEPOSIT_AMOUNTS[acting_party_name]
-
-
-@pytest.fixture
-def send_amount():
-    return SEND_AMOUNT
-
-
-def test_send_tokens(web3, token, acting_party, guy):
-    fund_token(
-        web3, token=token, sender=guy, to=acting_party.address, amount=FUND_TOKEN_AMOUNT
-    )
-    assert token.balanceOf(acting_party.address).call() == FUND_TOKEN_AMOUNT
-
-
-@pytest.fixture
-def with_tokens(web3, token, acting_party, guy):
-    fund_token(
-        web3, token=token, sender=guy, to=acting_party.address, amount=FUND_TOKEN_AMOUNT
-    )
-    return acting_party
-
-
-@pytest.fixture
-def channel_with_deposit(channel, acting_party, deposit_amount, with_tokens):
-    channel.deposit(sender=acting_party, amount=deposit_amount)
-    return channel
 
 
 def test_channel_can_create_channel(

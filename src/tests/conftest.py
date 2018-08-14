@@ -9,7 +9,15 @@ from ..channel import Channel, ChannelState, Payment
 from ..contracts.dappsys import DSToken
 from ..contracts.PreimageManager import PreimageManager
 from ..contracts.SpritesRegistry import SpritesRegistry
-from ..util import GAS, check_tx, deploy_contract, fund_account, generate_preimage, mint
+from ..util import (
+    GAS,
+    check_tx,
+    deploy_contract,
+    fund_account,
+    fund_token,
+    generate_preimage,
+    mint,
+)
 
 GETH_URL = "http://localhost:8545"
 PARTY_NAMES = ["alice", "bob"]
@@ -23,6 +31,13 @@ DEPLOYER_PK = "0xe33292da27178504b848586dcee3011a7e21ee6ed96f9df17487fd6518a128c
 ALICE_PK = "0xd8ae722d3a6876fd27907c434968e7373c6fbb985242e545a427531132ef3a71"
 BOB_PK = "0x28e58f2f6a924d381e243ec1ca4a2239d2b35ebd9a44cec11aead6848a52630b"
 CHARLIE_PK = "0x8e1733c6774268aee3db54901086b1f642f51e60300674ae3b33f1e1217ec7f5"
+
+TOKEN_NAMES = ["WETH", "OAX"]
+THIRD_PARTY_NAME = "charlie"
+FUND_TOKEN_AMOUNT = 100
+DEPOSIT_AMOUNTS = {"alice": 9, "bob": 10}
+SEND_AMOUNT = 7
+# two parties are equivalent / symmetric in many tests
 
 Account = namedtuple("Account", "address privateKey")
 
@@ -309,3 +324,54 @@ def last_state(deposits, credits, withdrawals, round, payment):
         round=round,
         payment=payment,
     )
+
+
+@pytest.fixture
+def deposit_amount(acting_party_name):
+    return DEPOSIT_AMOUNTS[acting_party_name]
+
+
+@pytest.fixture
+def send_amount():
+    return SEND_AMOUNT
+
+
+def test_send_tokens(web3, token, acting_party, guy):
+    fund_token(
+        web3, token=token, sender=guy, to=acting_party.address, amount=FUND_TOKEN_AMOUNT
+    )
+    assert token.balanceOf(acting_party.address).call() == FUND_TOKEN_AMOUNT
+
+
+@pytest.fixture
+def with_tokens(web3, token, acting_party, guy):
+    fund_token(
+        web3, token=token, sender=guy, to=acting_party.address, amount=FUND_TOKEN_AMOUNT
+    )
+    return acting_party
+
+
+@pytest.fixture
+def with_other_tokens(web3, other_token, other_party, guy):
+    fund_token(
+        web3,
+        token=other_token,
+        sender=guy,
+        to=other_party.address,
+        amount=FUND_TOKEN_AMOUNT,
+    )
+    return other_party
+
+
+@pytest.fixture
+def channel_with_deposit(channel, acting_party, deposit_amount, with_tokens):
+    channel.deposit(sender=acting_party, amount=deposit_amount)
+    return channel
+
+
+@pytest.fixture
+def other_channel_with_deposit(
+    other_channel, other_party, deposit_amount, with_other_tokens
+):
+    other_channel.deposit(sender=other_party, amount=deposit_amount)
+    return other_channel

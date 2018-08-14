@@ -45,7 +45,7 @@ def test_changing_other_withdrawals_fails(last_state, new_state):
 
 @p("credits", [[0, 0]])
 @p("new_credits", [[1, 0]])
-def test_inflating_credits_failns(last_state, new_state):
+def test_inflating_credits_fails(last_state, new_state):
     with pytest.raises(ForbiddenStateChange):
         last_state.validate(new_state)
 
