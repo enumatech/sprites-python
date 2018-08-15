@@ -16,7 +16,7 @@ interface PreimageManager {
 contract SpritesRegistry {
 
     // Blocks for grace period
-    uint constant DELTA = 2;
+    uint constant DELTA = 10;
 
     struct Player {
       address addr;

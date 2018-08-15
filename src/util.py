@@ -14,7 +14,7 @@ log = logging.getLogger(__name__)
 
 GAS = 4_000_000
 LOTS = 10 ** 18
-DELTA = 2  # needs to match contract DELTA
+DELTA = 10  # needs to match contract DELTA
 ZERO_PREIMAGE_HASH = bytes(32)
 ZERO_ADDRESS = "0x0000000000000000000000000000000000000000"
 COMMANDS = ["open", "complete", "cancel"]
