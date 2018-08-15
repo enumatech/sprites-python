@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs 
+nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
 nix-channel --update
 
 nix-env -iA \
     nixpkgs.direnv \
-    nixpkgs.xz \
-    nixpkgs.glibcLocales
+    nixpkgs.xz
 
 direnv allow

@@ -6,6 +6,7 @@ bin/solc.sh "contracts/*.sol"
 bin/geth.sh &
 
 # wait for geth to come online
-timeout 10 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost 8545
+timeout 10 bash -c 'until printf "" 2>>/dev/null >>/dev/tcp/$0/$1; do sleep 1; done' localhost 8545 \
+    || (echo GETH NOT LISTENING; exit 1)
 
 exec py.test
