@@ -1,4 +1,4 @@
 {
-  "url": "https://releases.nixos.org/nixpkgs/nixpkgs-18.09pre147700.03e47c388ac/nixexprs.tar.xz",
-  "sha256": "06prf50w9w5qkrjhxgj7dkwwxfanh9akv3qfb6ibh8mqp1jmnwqm"
+  "url": "https://github.com/nixos/nixpkgs/archive/93147d737d24f55d8da7257e24d840c9f9b1fe6c.tar.gz",
+  "sha256": "0bcmlf8sdiqw6sgdffxywvdy4b29iw0bwdqq5wcpfz3fhsj13zk3"
 }
