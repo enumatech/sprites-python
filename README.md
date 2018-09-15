@@ -17,7 +17,7 @@ channels https://github.com/amiller/sprites.
 Activate `direnv`, compile contracts and start a `geth` dev chain.
 ```bash
 direnv allow     # sets up nix and pipenv
-overmind start   # or just overmind s
+hivemind
 ```
 Run the tests in another terminal
 ```

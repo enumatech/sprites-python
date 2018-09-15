@@ -26,7 +26,8 @@ mkShell rec {
     libtool
     locale
     openssl
-    overmind
+    # overmind
+    (callPackage ./hivemind.nix { })
     pipenv
     pkgconfig
     secp256k1
